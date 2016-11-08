@@ -102,18 +102,32 @@ void Bg::update(float delta)
 	m_bgSprite2->setPositionY(posY2);
 
 
+
 	// 飞机移动
 	if (isAdown)
 		this->planeLayer->moveLeftOrRight('A');
 	if (isDdown)
 		this->planeLayer->moveLeftOrRight('D');
 
-	// 判断子弹和敌机的碰撞，清除相关内容
 	auto & vector2 = Manager::getInstance()->getBulletVector();
 	auto & vector1 = Manager::getInstance()->getEnemyVector();
+
+	// 飞机是否被撞了
+	for (EnemyBase* spenemy : vector1)
+	{
+		Rect r1 = spenemy->getBoundingBox();
+		Rect r2 = planeLayer->plane->getBoundingBox();
+
+		if (r1.intersectsRect(r2))
+		{
+			//CCLOG("GameOver");
+		}
+	}
+
 	Vector<Bullet*> rm1;
 	Vector<EnemyBase*> rm2;
 
+	// 判断敌机与子弹
 	for (Bullet* spbullet : vector2)
 	{
 		Rect r1 = spbullet->getBoundingBox();
@@ -300,4 +314,17 @@ void Bg::addEnemy(float tm)
 	// 创建的敌机添加到管理器中
 	auto & enemyVector = Manager::getInstance()->getEnemyVector();
 	enemyVector.pushBack(enemy);
+}
+
+//游戏结束
+void Bg::gameOver()
+{
+#if 0
+	//停止发射子弹
+	this->unschedule(SEL_SCHEDULE(&MainGame::addBullet));
+	this->unschedule(SEL_SCHEDULE(&MainGame::addBulletByUfo));
+
+	//碰到炸弹的处理和碰到敌机的处理是相同的
+	Director::getInstance()->replaceScene(GameOver::createScene());
+#endif
 }

@@ -44,6 +44,8 @@ public:
 	Label *scoreLabel;
 	int score;
 
+	void gameOver();
+
 public:
 	Sprite* m_bgSprite1;	// ±³¾°¾«Áé1
 	Sprite* m_bgSprite2;	// ±³¾°¾«Áé2
