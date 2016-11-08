@@ -102,6 +102,35 @@ void Bg::update(float delta)
 	if (isDdown)
 		this->planeLayer->moveLeftOrRight('D');
 
+	// 判断子弹和敌机的碰撞，清除相关内容
+	auto & vector2 = Manager::getInstance()->getBulletVector();
+	auto & vector1 = Manager::getInstance()->getEnemyVector();
+	Vector<Bullet*> rm1;
+	Vector<EnemyBase*> rm2;
+
+	for (Bullet* spbullet : vector2)
+	{
+		Rect r1 = spbullet->getBoundingBox();
+		for (EnemyBase* spenemy : vector1)
+		{
+			Rect r2 = spenemy->getBoundingBox();
+			if (r1.intersectsRect(r2)) // 相撞
+			{
+				rm1.pushBack(spbullet);
+				rm2.pushBack(spenemy);
+				spbullet->removeFromParentAndCleanup(true);
+				//spenemy->blowUp();
+				spenemy->removeFromParentAndCleanup(true);
+			}
+		}
+	}
+
+	// 更新manager中的容器
+	for (Bullet* spbullet : rm1)
+		vector2.eraseObject(spbullet);
+	for (EnemyBase* spenemy : rm2)
+		vector1.eraseObject(spenemy);
+
 }
 
 // 按键 按下
