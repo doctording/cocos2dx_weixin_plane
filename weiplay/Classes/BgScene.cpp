@@ -33,7 +33,21 @@ bool Bg::init()
 
 	initBG();
 
+	// 添加飞机
+	planeLayer = PlaneLayer::create();
+	this->addChild(planeLayer, 1);
+
 	this->scheduleUpdate(); // 更新
+
+	// 键盘事件
+	auto listenerKeyPad = EventListenerKeyboard::create();
+	listenerKeyPad->onKeyPressed = CC_CALLBACK_2(Bg::onKeyPressed, this);
+	listenerKeyPad->onKeyReleased = CC_CALLBACK_2(Bg::onKeyReleased, this);
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listenerKeyPad, this);
+
+	// 按键是否按下
+	isAdown = false;
+	isDdown = false;
 
 	return true;
 }
@@ -77,4 +91,72 @@ void Bg::update(float delta)
 
 	m_bgSprite1->setPositionY(posY1);
 	m_bgSprite2->setPositionY(posY2);
+
+
+	// 飞机移动
+	if (isAdown)
+		this->planeLayer->moveLeftOrRight('A');
+	if (isDdown)
+		this->planeLayer->moveLeftOrRight('D');
+
+}
+
+// 按键 按下
+void Bg::onKeyPressed(EventKeyboard::KeyCode keycode, cocos2d::Event *event)
+{
+	switch (keycode)
+	{
+	case EventKeyboard::KeyCode::KEY_A:
+		//Director::getInstance()->pause();
+		//this->planeLayer->moveLeftOrRight('A');
+		isAdown = true;
+		break;
+	case EventKeyboard::KeyCode::KEY_D:
+		//this->planeLayer->moveLeftOrRight('D');
+		isDdown = true;
+		break;
+	case EventKeyboard::KeyCode::KEY_W:
+
+		break;
+	case EventKeyboard::KeyCode::KEY_S:
+
+		break;
+
+	// 用来发射子弹
+	case EventKeyboard::KeyCode::KEY_J:
+	{
+
+	}
+	break;
+
+	default:
+		break;
+	}
+}
+
+//按键 释放
+void Bg::onKeyReleased(EventKeyboard::KeyCode keycode, cocos2d::Event *event)
+{
+	switch (keycode)
+	{
+	case EventKeyboard::KeyCode::KEY_A:
+		isAdown = false;
+		break;
+	case EventKeyboard::KeyCode::KEY_D:
+		isDdown = false;
+		break;
+	case EventKeyboard::KeyCode::KEY_W:
+
+		break;
+	case EventKeyboard::KeyCode::KEY_S:
+
+		break;
+
+	case EventKeyboard::KeyCode::KEY_J:
+
+		break;
+
+	default:
+		break;
+	}
 }
