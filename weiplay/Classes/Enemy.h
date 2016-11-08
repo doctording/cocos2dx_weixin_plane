@@ -32,6 +32,10 @@ public:
 	//敌机移动
 	void move(float tm);
 	
+	void setHp(int hp);
+	int getHp();
+
+	void hit();
 private:
 	
 	//获得start-end范围内的一个随机数
@@ -45,6 +49,9 @@ private:
 	
 	//爆炸效果的纹理数量
 	int m_count;
+
+	//敌机的血量值
+	int m_hp;
 };
 
 #endif

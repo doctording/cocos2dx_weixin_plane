@@ -119,16 +119,30 @@ void Bg::update(float delta)
 		Rect r1 = spbullet->getBoundingBox();
 		for (EnemyBase* spenemy : vector1)
 		{
+			if (spenemy->getHp() == 0) // 敌机血量为0 已经死亡了
+			{
+				continue;
+			}
 			Rect r2 = spenemy->getBoundingBox();
 			if (r1.intersectsRect(r2)) // 相撞
 			{
-				rm1.pushBack(spbullet);
-				rm2.pushBack(spenemy);
+				spenemy->setHp(spenemy->getHp() - 1);
+
+				rm1.pushBack(spbullet); // 子弹消失
 				spbullet->removeFromParentAndCleanup(true);
-				//spenemy->blowUp();
-				spenemy->removeFromParentAndCleanup(true);
 
 				this->score += 10; // 碰撞后的分数添加
+
+				if (spenemy->getHp() == 0) // 判断敌机死亡并销毁
+				{
+					// spenemy->blowUp(); 好像没有什么效果
+					rm2.pushBack(spenemy);
+					spenemy->removeFromParentAndCleanup(true);
+				}
+				else{
+					spenemy->hit();
+				}
+
 			}
 		}
 	}
@@ -278,7 +292,7 @@ void Bg::addEnemy(float tm)
 		//直接返回，不再执行下面的语句
 		return;
 	}
-	//以下的这句话一定要调用，天机敌机
+	//以下的这句话一定要调用，添加敌机
 	auto str = __String::createWithFormat("AirplaneResource\\ui\\shoot\\enemy%d", enemy_x);
 	enemy->initEnemy(str->getCString(), count);
 	this->addChild(enemy, 1);

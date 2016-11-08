@@ -51,8 +51,8 @@ bool PlaneLayer::init()
 	AnimationCache::getInstance()->addAnimation(animation, "animation");
 	auto animate = Animate::create(AnimationCache::getInstance()->getAnimation("animation"));
 
-	Blink *blink = Blink::create(5.0f, 10);//闪烁动画  
-	plane->runAction(blink);//执行闪烁动画  
+	Blink *blink = Blink::create(5.0f, 10);//闪烁动画
+	plane->runAction(blink);//执行闪烁动画
 
 	auto repeat = Repeat::create(animate, 5); // 执行精灵帧自身动画
 	plane->runAction(repeat);
