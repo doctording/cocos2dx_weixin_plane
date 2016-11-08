@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
+#include "BgScene.h"
 
 USING_NS_CC;
 
@@ -17,6 +18,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto glview = director->getOpenGLView();
     if(!glview) {
         glview = GLView::create("My Game");
+		glview->setFrameSize(400, 550); //设置为背景图片的宽 和 高
         director->setOpenGLView(glview);
     }
 
@@ -27,8 +29,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-
+    //auto scene = HelloWorld::createScene();
+	auto scene = Bg::createScene();
     // run
     director->runWithScene(scene);
 
