@@ -1,4 +1,5 @@
 ﻿#include "BgScene.h"
+#include "GameOver.h"
 
 USING_NS_CC;
 
@@ -121,6 +122,7 @@ void Bg::update(float delta)
 		if (r1.intersectsRect(r2))
 		{
 			//CCLOG("GameOver");
+			gameOver();
 		}
 	}
 
@@ -319,12 +321,47 @@ void Bg::addEnemy(float tm)
 //游戏结束
 void Bg::gameOver()
 {
-#if 0
-	//停止发射子弹
-	this->unschedule(SEL_SCHEDULE(&MainGame::addBullet));
-	this->unschedule(SEL_SCHEDULE(&MainGame::addBulletByUfo));
+	//停止发射子弹 等
+	this->unschedule(SEL_SCHEDULE(&Bg::addBullet));
+	this->unschedule(SEL_SCHEDULE(&Bg::addEnemy));
 
-	//碰到炸弹的处理和碰到敌机的处理是相同的
-	Director::getInstance()->replaceScene(GameOver::createScene());
-#endif
+	this->unschedule(schedule_selector(Bg::update));
+
+	//玩家飞机炸毁的动画
+	//this->planeLayer->blow();
+
+	// 根据图片帧制作动画
+	Vector<SpriteFrame*> spriteFrameVec;
+	auto spriteFrameCache = SpriteFrameCache::getInstance();
+
+	char path[256] = { 0 };
+	for (int i = 1; i <= 4; ++i)
+	{
+		sprintf_s(path, "AirplaneResource\\ui\\shoot\\hero_blowup_n%d.png", i);
+
+		// 150*105是图片的大小，貌似这样直接设定是不好的；但是还必须提供这个参数
+		// 应该给这个Rect参数提供一个默认参数，默认加载整个图片
+		SpriteFrame *pSpriteFrame = SpriteFrame::create(path, Rect(0, 0, 102, 126));
+
+		// 加入SpriteFrameCache中
+		spriteFrameCache->addSpriteFrame(pSpriteFrame, path);
+		spriteFrameVec.pushBack(pSpriteFrame);
+	}
+
+	Animation* animation = Animation::createWithSpriteFrames(spriteFrameVec);
+	animation->setLoops(1);
+	animation->setRestoreOriginalFrame(false); // 设置是否在动画播放结束后恢复到第一帧
+	// should last 2.0 seconds. And there are 4 frames.
+	animation->setDelayPerUnit(1.3f / 4.0f);
+	Animate* peeAnimate = Animate::create(animation);
+
+	//切换场景
+	auto func = []()
+	{
+		// 切换到 GameOver 场景
+		Director::getInstance()->replaceScene(GameOver::createScene()); 
+	};
+	//执行动作序列
+	auto sequence = Sequence::create(peeAnimate, CallFunc::create(func), NULL);
+	this->planeLayer->plane->runAction(sequence);
 }
