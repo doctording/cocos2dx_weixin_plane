@@ -1,3 +1,6 @@
+#ifndef __PLARER_H__
+#define __PLARER_H__
+
 #include "cocos2d.h"
 
 USING_NS_CC;
@@ -21,3 +24,5 @@ public:
 
 	void moveLeftOrRight(char c); // 飞机的移动属性
 };
+
+#endif //

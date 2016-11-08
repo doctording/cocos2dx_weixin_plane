@@ -3,6 +3,7 @@
 
 #include "cocos2d.h"
 #include "Player.h"
+#include "Bullet.h"
 
 USING_NS_CC;
 
@@ -31,6 +32,8 @@ public:
 	bool isAdown;
 	bool isDdown;
 
+	// Ìí¼Ó×Óµ¯
+	void addBullet(float tm);
 
 public:
 	Sprite* m_bgSprite1;	// ±³¾°¾«Áé1

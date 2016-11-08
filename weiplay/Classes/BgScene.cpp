@@ -125,7 +125,7 @@ void Bg::onKeyPressed(EventKeyboard::KeyCode keycode, cocos2d::Event *event)
 	// 用来发射子弹
 	case EventKeyboard::KeyCode::KEY_J:
 	{
-
+		this->schedule(SEL_SCHEDULE(&Bg::addBullet), 0.08f); // 开启子弹发射
 	}
 	break;
 
@@ -153,10 +153,27 @@ void Bg::onKeyReleased(EventKeyboard::KeyCode keycode, cocos2d::Event *event)
 		break;
 
 	case EventKeyboard::KeyCode::KEY_J:
-
+	{
+		this->unschedule(SEL_SCHEDULE(&Bg::addBullet)); // 取消子弹定时器
+	}
 		break;
 
 	default:
 		break;
 	}
+}
+
+void Bg::addBullet(float tm)
+{
+	auto bullet = Bullet::create();
+	bullet->initBullet("AirplaneResource\\ui\\shoot\\bullet1.png");
+	// 设置字段的位置为飞机的出口处 
+	bullet->setPosition(Point(planeLayer->plane->getPositionX(),
+		planeLayer->plane->getPositionY() + planeLayer->plane->getContentSize().height / 2 + 10));
+	// 添加到场景中 
+	this->addChild(bullet, 1);
+
+	// 这里还需要将子弹添加到管理器中，一遍后续的碰撞，释放等相关操作 
+	// TODO
+	
 }
