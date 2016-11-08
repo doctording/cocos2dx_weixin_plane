@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "Manager.h"
+#include "Enemy.h"
 
 USING_NS_CC;
 
@@ -35,6 +36,9 @@ public:
 
 	// 添加子弹
 	void addBullet(float tm);
+
+	// 添加敌机
+	void addEnemy(float tm);
 
 public:
 	Sprite* m_bgSprite1;	// 背景精灵1

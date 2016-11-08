@@ -4,6 +4,7 @@
 
 #include "cocos2d.h"
 #include "Bullet.h"
+#include "Enemy.h"
 
 USING_NS_CC;
 
@@ -28,6 +29,9 @@ public:
 	Vector<Bullet *> m_bulletVector;
 	Vector<Bullet *> & getBulletVector(){ return m_bulletVector; };
 
+	// µÐ»ú¹ÜÀíÆ÷
+	Vector<EnemyBase *> m_enemyVector;
+	Vector<EnemyBase *> & getEnemyVector(){ return m_enemyVector; };
 };
 
 #endif //

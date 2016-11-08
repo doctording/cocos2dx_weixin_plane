@@ -49,6 +49,9 @@ bool Bg::init()
 	isAdown = false;
 	isDdown = false;
 
+	// 添加敌机
+	this->schedule(SEL_SCHEDULE(&Bg::addEnemy), 1.0f);
+
 	return true;
 }
 
@@ -176,4 +179,70 @@ void Bg::addBullet(float tm)
 	// 这里还需要将子弹添加到管理器中
 	auto & bulletVector = Manager::getInstance()->getBulletVector();
 	bulletVector.pushBack(bullet);
+}
+
+void Bg::addEnemy(float tm)
+{
+	/*
+		这里是根据一个分数或者说时间来改变敌机出现的快慢，先写死了，后期添加上了分数再来做这块
+	*/
+	static int score = 0;
+	score++;
+	if (score>50)
+	{
+		//重新调用schedule会更新时间的
+		this->schedule(SEL_SCHEDULE(&Bg::addEnemy), 0.8f);
+	}
+	else if (score>100)
+	{
+		this->schedule(SEL_SCHEDULE(&Bg::addEnemy), 0.6f);
+	}
+	else if (score>200)
+	{
+		this->schedule(SEL_SCHEDULE(&Bg::addEnemy), 0.5f);
+	}
+	else if (score>400)
+	{
+		this->schedule(SEL_SCHEDULE(&Bg::addEnemy), 0.3f);
+	}
+
+	auto enemy = EnemyBase::create();
+	//根据不同的概率随机的添加不同种类的飞机
+	int enemy_x = CCRANDOM_0_1() * 9 + 1;
+	int count = 0;
+	if (enemy_x > 0 && enemy_x <7)
+	{
+		enemy_x = 1;
+		count = 4;
+	}
+	else if (enemy_x >= 7 && enemy_x < 9)
+	{
+		enemy_x = 2;
+		count = 4;
+	}
+	else
+	{
+		//敌机三用到的背景图片不太一样，这里单独的建立下
+		count = 6;
+		enemy->initEnemy("AirplaneResource\\ui\shoot\\enemy3_n1", count);
+		//创建敌机三的动画
+		Vector<SpriteFrame *> vector;
+		//vector.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName("enemy3_n1.png"));
+		//vector.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName("enemy3_n2.png"));
+		//auto animation = Animation::createWithSpriteFrames(vector, 0.2f, -1);
+		//auto animate = Animate::create(animation);
+		//enemy->runAction(animate);
+		//添加到当前的层中
+		this->addChild(enemy, 1);
+		//直接返回，不再执行下面的语句
+		return;
+	}
+	//以下的这句话一定要调用，天机敌机
+	auto str = __String::createWithFormat("AirplaneResource\\ui\\shoot\\enemy%d", enemy_x);
+	enemy->initEnemy(str->getCString(), count);
+	this->addChild(enemy, 1);
+
+	// 创建的敌机添加到管理器中
+	auto & enemyVector = Manager::getInstance()->getEnemyVector();
+	enemyVector.pushBack(enemy);
 }
