@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Manager.h"
 
 USING_NS_CC;
 

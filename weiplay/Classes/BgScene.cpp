@@ -173,7 +173,7 @@ void Bg::addBullet(float tm)
 	// 添加到场景中 
 	this->addChild(bullet, 1);
 
-	// 这里还需要将子弹添加到管理器中，一遍后续的碰撞，释放等相关操作 
-	// TODO
-	
+	// 这里还需要将子弹添加到管理器中
+	auto & bulletVector = Manager::getInstance()->getBulletVector();
+	bulletVector.pushBack(bullet);
 }

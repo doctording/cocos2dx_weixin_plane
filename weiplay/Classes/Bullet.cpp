@@ -1,4 +1,5 @@
 ﻿#include "Bullet.h"
+#include "Manager.h"
 
 USING_NS_CC;
 
@@ -35,8 +36,11 @@ void Bullet::move(float tm)
 	if (this->getPositionY() > Director::getInstance()->getWinSize().height) // 出了屏幕
 	{
 		this->removeFromParentAndCleanup(true); // 先从场景中移除出去
-
 		// 还需要销毁这个对象
-		// TODO
+		//从管理器中移除出去
+		auto & bulletVector = Manager::getInstance()->getBulletVector();
+		bulletVector.eraseObject(this);
+		// 使用 log
+		//CCLOG("bulletSize=%d", (int)bulletVector.size());
 	}
 }
