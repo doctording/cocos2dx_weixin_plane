@@ -58,11 +58,11 @@ bool Bg::init()
 
 void Bg::initBG()
 {
-	m_bgSprite1 = Sprite::create("bg1.png");
+	m_bgSprite1 = Sprite::create("background.png");
 	m_bgSprite1->setPosition(Point(visibleSize.width / 2, visibleSize.height / 2));
 	this->addChild(m_bgSprite1, 0);
 
-	m_bgSprite2 = Sprite::create("bg2.png");
+	m_bgSprite2 = Sprite::create("background.png");
 	m_bgSprite2->setPosition(Point(visibleSize.width / 2, visibleSize.height + visibleSize.height / 2));
 	this->addChild(m_bgSprite2, 0);
 
