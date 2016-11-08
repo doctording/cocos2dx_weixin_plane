@@ -40,6 +40,10 @@ public:
 	// 添加敌机
 	void addEnemy(float tm);
 
+	// 添加scoreLabel
+	Label *scoreLabel;
+	int score;
+
 public:
 	Sprite* m_bgSprite1;	// 背景精灵1
 	Sprite* m_bgSprite2;	// 背景精灵2

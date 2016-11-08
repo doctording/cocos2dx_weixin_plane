@@ -65,6 +65,12 @@ void Bg::initBG()
 	m_bgSprite2->setPosition(Point(visibleSize.width / 2, visibleSize.height + visibleSize.height / 2));
 	this->addChild(m_bgSprite2, 0);
 
+	// 添加上scoreLabel
+	scoreLabel = Label::create("Score: 0", "Arial", 24);
+	this->score = 0;
+	scoreLabel->setPosition(Point(origin.x + visibleSize.width - 100,
+		origin.y + visibleSize.height - scoreLabel->getContentSize().height));
+	this->addChild(scoreLabel, 2);
 }
 
 void Bg::update(float delta)
@@ -121,6 +127,8 @@ void Bg::update(float delta)
 				spbullet->removeFromParentAndCleanup(true);
 				//spenemy->blowUp();
 				spenemy->removeFromParentAndCleanup(true);
+
+				this->score += 10; // 碰撞后的分数添加
 			}
 		}
 	}
@@ -131,6 +139,10 @@ void Bg::update(float delta)
 	for (EnemyBase* spenemy : rm2)
 		vector1.eraseObject(spenemy);
 
+
+	// 更新分数
+	auto str = __String::createWithFormat("score: %d", score);
+	scoreLabel->setString(str->getCString());
 }
 
 // 按键 按下
