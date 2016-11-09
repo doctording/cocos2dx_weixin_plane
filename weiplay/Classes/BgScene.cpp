@@ -365,11 +365,14 @@ void Bg::gameOver()
 	Animate* peeAnimate = Animate::create(animation);
 
 	//切换场景
-	auto func = []()
+	auto func = [this]()
 	{
 		Manager::freeInstance(); // 销毁所有的子弹，敌机等数据
+		auto scene = GameOver::createScene();
+		GameOver *overLayer = (GameOver*)scene->getChildByTag(404); // tag
+		overLayer->score_int = score;
 		// 切换到 GameOver 场景
-		Director::getInstance()->replaceScene(GameOver::createScene()); 
+		Director::getInstance()->replaceScene(scene);
 	};
 	//执行动作序列
 	auto sequence = Sequence::create(peeAnimate, CallFunc::create(func), NULL);

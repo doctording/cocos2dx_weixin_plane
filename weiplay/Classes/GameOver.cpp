@@ -1,4 +1,5 @@
 ﻿#include "GameOver.h"
+#include "SaveData.h"
 
 GameOver::GameOver(void)
 {
@@ -12,6 +13,9 @@ Scene * GameOver::createScene()
 {
 	auto scene = Scene::create();
 	auto layer = GameOver::create();
+
+	layer->setTag(404);
+
 	scene->addChild(layer);
 
 	return scene;
@@ -41,12 +45,12 @@ bool GameOver::init()
 	this->addChild(menu,1);
 
 	//添加玩家得分到结束界面 TODO
-	auto score_int = 0; 
+	score_int = 0;
 	auto score_str = __String::createWithFormat("%d", score_int);
-	auto score = Label::createWithTTF(score_str->getCString(), "fonts\\arial.ttf", 40);
-	score->setPosition(Point(size.width / 2, size.height / 2));
-	score->setColor(Color3B(100, 100, 100));
-	this->addChild(score);
+	score_label = Label::createWithTTF(score_str->getCString(), "fonts\\arial.ttf", 40);
+	score_label->setPosition(Point(size.width / 2, size.height / 2));
+	score_label->setColor(Color3B(100, 100, 100));
+	this->addChild(score_label);
 
 	return true;
 }
@@ -55,4 +59,21 @@ void GameOver::backGame(Ref * ref)
 {
 	//切换到开始游戏的场景
 	Director::getInstance()->replaceScene(StartGame::createScene());
+}
+
+void GameOver::onEnter()
+{
+	Layer::onEnter(); // 这个不能够漏掉
+	//CCLOG("get score: %d", score_int);
+	auto score_str = __String::createWithFormat("%d", score_int);
+	score_label->setString(score_str->getCString());
+
+	SaveData* sd = SaveData::sharedUserData();
+	if (score_int > sd->getHighScore())
+	{
+		sd->setHighScore(score_int);
+	}
+	//CCLOG("%d",sd->getHighScore());
+	// E: / workspace / playfire / weiplay / proj.win32 / Debug.win32 /
+	//CCLOG("%s", FileUtils::getInstance()->getWritablePath().c_str());
 }

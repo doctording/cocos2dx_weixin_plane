@@ -1,5 +1,5 @@
-#ifndef _GAME_OVER_H_
-#define _GAME_OVER_H_
+#ifndef _HIGH_SCORE_H_
+#define _HIGH_SCORE_H_
 #include "cocos2d.h"
 //开始游戏场景
 #include "StartGame.h"
@@ -7,22 +7,18 @@
 USING_NS_CC;
 
 //游戏结束场景
-class GameOver : public Layer
+class HighScore : public Layer
 {
 public:
-	GameOver(void);
-	~GameOver(void);
+	HighScore(void);
+	~HighScore(void);
 public:
 	static Scene * createScene();
 	bool init();
-	CREATE_FUNC(GameOver);
+	CREATE_FUNC(HighScore);
 public:
 	//回到游戏的回调函数
 	void backGame(Ref * ref);
-
-	int score_int;
-	Label* score_label;
-	void onEnter();
 };
 
 #endif
