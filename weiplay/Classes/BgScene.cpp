@@ -195,6 +195,16 @@ void Bg::onKeyPressed(EventKeyboard::KeyCode keycode, cocos2d::Event *event)
 	case EventKeyboard::KeyCode::KEY_S:
 
 		break;
+	// I键暂停游戏，截屏并跳转
+	case EventKeyboard::KeyCode::KEY_I:
+	{
+		RenderTexture *renTexture = RenderTexture::create(400, 550);
+		renTexture->begin();
+		this->getParent()->visit();
+		renTexture->end();
+		Director::getInstance()->pushScene(Pause::scene(renTexture, true));
+	}
+		break;
 
 	// 用来发射子弹
 	case EventKeyboard::KeyCode::KEY_J:
@@ -220,7 +230,6 @@ void Bg::onKeyReleased(EventKeyboard::KeyCode keycode, cocos2d::Event *event)
 		isDdown = false;
 		break;
 	case EventKeyboard::KeyCode::KEY_W:
-
 		break;
 	case EventKeyboard::KeyCode::KEY_S:
 
@@ -358,6 +367,7 @@ void Bg::gameOver()
 	//切换场景
 	auto func = []()
 	{
+		Manager::freeInstance(); // 销毁所有的子弹，敌机等数据
 		// 切换到 GameOver 场景
 		Director::getInstance()->replaceScene(GameOver::createScene()); 
 	};

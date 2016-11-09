@@ -6,6 +6,7 @@
 #include "Bullet.h"
 #include "Manager.h"
 #include "Enemy.h"
+#include "Pause.h"
 
 USING_NS_CC;
 
