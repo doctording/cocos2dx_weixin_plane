@@ -2,4 +2,6 @@
 <dict>
 <key>play</key>
 <string>Start_Game</string>
+<key>help</key>
+<string>Help</string>
 </dict>

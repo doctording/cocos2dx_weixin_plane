@@ -1,5 +1,6 @@
 ﻿#include "StartGame.h"
 #include "BgScene.h"
+#include "Help.h"
 
 StartGame::StartGame(void)
 {
@@ -48,11 +49,20 @@ bool StartGame::init()
 	Label* playText = Label::createWithTTF(((__String *)(dictionary->objectForKey("play")))->getCString(),
 		"fonts\\DFPShaoNvW5-GB.ttf", 40);
 	playText->setColor(Color3B(100, 100, 100));
-
 	auto playMenu = MenuItemLabel::create(playText, CC_CALLBACK_1(StartGame::play, this));
+	
 	auto menu = Menu::create(playMenu, NULL);
 	menu->setPosition(size.width / 2, size.height*0.3);
 	this->addChild(menu);
+
+	Label* playText2 = Label::createWithTTF(((__String *)(dictionary->objectForKey("help")))->getCString(),
+		"fonts\\DFPShaoNvW5-GB.ttf", 40);
+	playText2->setColor(Color3B(100, 100, 100));
+	auto playMenu2 = MenuItemLabel::create(playText2, CC_CALLBACK_1(StartGame::help, this));
+
+	auto menu2 = Menu::create(playMenu2, NULL);
+	menu2->setPosition(size.width / 2, size.height*0.2);
+	this->addChild(menu2);
 
 	return true;
 }
@@ -62,5 +72,12 @@ void StartGame::play(cocos2d::Ref * ref)
 {
 	//CCLOG("play game!");
 	auto scene = Bg::createScene();
+	Director::getInstance()->replaceScene(scene);
+}
+
+//开始游戏按钮的响应函数
+void StartGame::help(cocos2d::Ref * ref)
+{
+	auto scene = Help::createScene();
 	Director::getInstance()->replaceScene(scene);
 }
