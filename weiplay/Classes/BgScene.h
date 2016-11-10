@@ -47,6 +47,13 @@ public:
 
 	void gameOver();
 
+	// 点击手势
+	bool onTouchBegan(Touch *touch, Event *unused_event);
+	// 拖动手势
+	void onTouchMoved(Touch *touch, Event *unused_event);
+	//  拖动结束
+	void onTouchEnded(Touch *touch, Event *unused_event);
+
 public:
 	Sprite* m_bgSprite1;	// 背景精灵1
 	Sprite* m_bgSprite2;	// 背景精灵2

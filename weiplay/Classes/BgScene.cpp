@@ -53,6 +53,17 @@ bool Bg::init()
 	// 添加敌机
 	this->schedule(SEL_SCHEDULE(&Bg::addEnemy), 1.0f);
 
+/**/
+	//创建监听事件对象
+	auto listener = EventListenerTouchOneByOne::create();
+	//定义监听事件的回调函数
+	listener->onTouchBegan = CC_CALLBACK_2(Bg::onTouchBegan, this);
+	listener->onTouchMoved = CC_CALLBACK_2(Bg::onTouchMoved, this);
+	listener->onTouchEnded = CC_CALLBACK_2(Bg::onTouchEnded, this);
+	//在事件分发器中注册
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+
+
 	return true;
 }
 
@@ -377,4 +388,26 @@ void Bg::gameOver()
 	//执行动作序列
 	auto sequence = Sequence::create(peeAnimate, CallFunc::create(func), NULL);
 	this->planeLayer->plane->runAction(sequence);
+}
+
+bool Bg::onTouchBegan(Touch *touch, Event *unused_event)
+{
+	//获取触屏位置（坐标）
+	Point pos = touch->getLocation();
+	//CCLOG("TouchBegan");
+	return true;
+}
+
+void Bg::onTouchMoved(Touch *touch, Event *unused_event)
+{
+	//获取当前拖动手势的坐标与位置
+	Point pos = touch->getLocation();
+	this->planeLayer->plane->setPosition(pos);
+	this->schedule(SEL_SCHEDULE(&Bg::addBullet), 0.2f); // 开启子弹发射
+	//CCLOG("TouchMoved");
+}
+
+void Bg::onTouchEnded(Touch *touch, Event *unused_event)
+{
+	this->unschedule(SEL_SCHEDULE(&Bg::addBullet)); // 取消子弹定时器
 }
