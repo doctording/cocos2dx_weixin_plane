@@ -37,7 +37,7 @@ bool PlaneLayer::init()
 	char path[256] = { 0 };
 	for (int i = 1; i <= 2; ++i)
 	{
-		sprintf_s(path, "AirplaneResource\\ui\\shoot\\hero%d.png", i);
+		sprintf(path, "AirplaneResource\\ui\\shoot\\hero%d.png", i);
 
 		// 150*105是图片的大小，貌似这样直接设定是不好的；但是还必须提供这个参数
 		// 应该给这个Rect参数提供一个默认参数，默认加载整个图片

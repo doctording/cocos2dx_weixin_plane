@@ -17,7 +17,7 @@ class  Manager
 public:
     
 	static Manager * getInstance();
-	static void Manager::freeInstance(void);
+	static void freeInstance(void);
 
 public:
 	static Manager * m_manager;
