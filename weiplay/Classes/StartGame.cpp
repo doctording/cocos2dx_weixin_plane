@@ -29,12 +29,12 @@ bool StartGame::init()
 	auto size = Director::getInstance()->getWinSize();
 
 	//使用缓存文件创建精灵
-	auto background = Sprite::create("AirplaneResource\\ui\\shoot_background\\background.png");
+	auto background = Sprite::create("AirplaneResource/ui/shoot_background/background.png");
 	background->setPosition(Point(size.width / 2, size.height / 2));
 	this->addChild(background);
 
 	//设置logo
-	auto logo = Sprite::create("AirplaneResource\\ui\\shoot_background\\shoot_copyright.png");
+	auto logo = Sprite::create("AirplaneResource/ui/shoot_background/shoot_copyright.png");
 	logo->setPosition(Point(size.width / 2, size.height - logo->getContentSize().height));
 	//设置透明度是0
 	logo->setOpacity(0);
@@ -45,10 +45,10 @@ bool StartGame::init()
 	logo->runAction(fade);
 
 	//从xml文件中读取中文显示出来
-	auto dictionary = Dictionary::createWithContentsOfFile("fonts\\text.xml");
+	auto dictionary = Dictionary::createWithContentsOfFile("fonts/text.xml");
 	// 1 添加一个游戏开始按钮
 	Label* playText = Label::createWithTTF(((__String *)(dictionary->objectForKey("play")))->getCString(),
-		"fonts\\DFPShaoNvW5-GB.ttf", 40);
+		"fonts/DFPShaoNvW5-GB.ttf", 40);
 	playText->setColor(Color3B(100, 100, 100));
 	auto playMenu = MenuItemLabel::create(playText, CC_CALLBACK_1(StartGame::play, this));
 	
@@ -57,7 +57,7 @@ bool StartGame::init()
 	this->addChild(menu);
 	// 2 游戏帮助按钮
 	Label* playText2 = Label::createWithTTF(((__String *)(dictionary->objectForKey("help")))->getCString(),
-		"fonts\\DFPShaoNvW5-GB.ttf", 40);
+		"fonts/DFPShaoNvW5-GB.ttf", 40);
 	playText2->setColor(Color3B(100, 100, 100));
 	auto playMenu2 = MenuItemLabel::create(playText2, CC_CALLBACK_1(StartGame::help, this));
 
@@ -67,7 +67,7 @@ bool StartGame::init()
 
 	// 2 游戏帮助按钮
 	Label* playText3 = Label::createWithTTF(((__String *)(dictionary->objectForKey("highScore")))->getCString(),
-		"fonts\\DFPShaoNvW5-GB.ttf", 40);
+		"fonts/DFPShaoNvW5-GB.ttf", 40);
 	playText3->setColor(Color3B(100, 100, 100));
 	auto playMenu3 = MenuItemLabel::create(playText3, CC_CALLBACK_1(StartGame::highScore, this));
 

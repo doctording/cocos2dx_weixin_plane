@@ -26,7 +26,7 @@ bool PlaneLayer::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 
 	//创建飞机精灵
-	plane = Sprite::create("AirplaneResource\\ui\\shoot\\hero1.png");
+	plane = Sprite::create("AirplaneResource/ui/shoot/hero1.png");
 	plane->setPosition(Point(visibleSize.width / 2, plane->getContentSize().height / 2)); //飞机放置在底部中央  
 	this->addChild(plane, 0, 100);//添加精灵，AIRPLANE是tag  
 
@@ -37,7 +37,7 @@ bool PlaneLayer::init()
 	char path[256] = { 0 };
 	for (int i = 1; i <= 2; ++i)
 	{
-		sprintf(path, "AirplaneResource\\ui\\shoot\\hero%d.png", i);
+		sprintf(path, "AirplaneResource/ui/shoot/hero%d.png", i);
 
 		// 150*105是图片的大小，貌似这样直接设定是不好的；但是还必须提供这个参数
 		// 应该给这个Rect参数提供一个默认参数，默认加载整个图片
@@ -89,7 +89,7 @@ void PlaneLayer::blow()
 	char path[256] = { 0 };
 	for (int i = 1; i <= 4; ++i)
 	{
-		sprintf_s(path, "AirplaneResource\\ui\\shoot\\hero_blowup_n%d.png", i);
+		sprintf_s(path, "AirplaneResource/ui/shoot/hero_blowup_n%d.png", i);
 
 		// 150*105是图片的大小，貌似这样直接设定是不好的；但是还必须提供这个参数
 		// 应该给这个Rect参数提供一个默认参数，默认加载整个图片

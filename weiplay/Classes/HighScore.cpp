@@ -26,17 +26,17 @@ bool HighScore::init()
 	auto size = Director::getInstance()->getWinSize();
 
 	//设置背景图片
-	auto background = Sprite::create("AirplaneResource\\ui\\shoot_background\\background.png");
+	auto background = Sprite::create("AirplaneResource/ui/shoot_background/background.png");
 	background->setPosition(Point(size.width / 2, size.height / 2));
 	this->addChild(background);
 
 	//从xml文件中读取中文显示出来
-	auto dictionary = Dictionary::createWithContentsOfFile("fonts\\text.xml");
+	auto dictionary = Dictionary::createWithContentsOfFile("fonts/text.xml");
 	
 	int hightScore = SaveData::sharedUserData()->getHighScore();
 	
 	auto score_str = __String::createWithFormat("High Score is: %d", hightScore);
-	auto score_label = Label::createWithTTF(score_str->getCString(), "fonts\\arial.ttf", 40);
+	auto score_label = Label::createWithTTF(score_str->getCString(), "fonts/arial.ttf", 40);
 	score_label->setPosition(Point(size.width / 2, size.height / 2));
 	score_label->setColor(Color3B(100, 100, 100));
 	this->addChild(score_label);
@@ -44,8 +44,8 @@ bool HighScore::init()
 
 	//添加回到游戏的菜单
 	auto returnItem = MenuItemImage::create();
-	//returnItem->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("AirplaneResource\\ui\\shoot_background\\btn_finish.png"));
-	SpriteFrame *pSpriteFrame = SpriteFrame::create("AirplaneResource\\ui\\shoot_background\\btn_finish.png", Rect(0, 0, 150, 48));
+	//returnItem->setNormalSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName("AirplaneResource/ui/shoot_background/btn_finish.png"));
+	SpriteFrame *pSpriteFrame = SpriteFrame::create("AirplaneResource/ui/shoot_background/btn_finish.png", Rect(0, 0, 150, 48));
 	returnItem->setNormalSpriteFrame(pSpriteFrame);
 	returnItem->setCallback(CC_CALLBACK_1(HighScore::backGame, this));
 

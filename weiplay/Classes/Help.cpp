@@ -35,7 +35,7 @@ bool Help::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Point origin = Director::getInstance()->getVisibleOrigin();
 
-	auto ui = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("Help\\Help_1.ExportJson"); 
+	auto ui = cocostudio::GUIReader::getInstance()->widgetFromJsonFile("Help/Help_1.ExportJson"); 
 	ui->setPosition(Point(0, 0));
 	this->addChild(ui);
 

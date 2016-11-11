@@ -260,7 +260,7 @@ void Bg::onKeyReleased(EventKeyboard::KeyCode keycode, cocos2d::Event *event)
 void Bg::addBullet(float tm)
 {
 	auto bullet = Bullet::create();
-	bullet->initBullet("AirplaneResource\\ui\\shoot\\bullet1.png");
+	bullet->initBullet("AirplaneResource/ui/shoot/bullet1.png");
 	// 设置字段的位置为飞机的出口处 
 	bullet->setPosition(Point(planeLayer->plane->getPositionX(),
 		planeLayer->plane->getPositionY() + planeLayer->plane->getContentSize().height / 2 + 10));
@@ -315,7 +315,7 @@ void Bg::addEnemy(float tm)
 	{
 		//敌机三用到的背景图片不太一样，这里单独的建立下
 		count = 6;
-		enemy->initEnemy("AirplaneResource\\ui\\shoot\\enemy3_n1", count);
+		enemy->initEnemy("AirplaneResource/ui/shoot/enemy3_n1", count);
 		//创建敌机三的动画
 		Vector<SpriteFrame *> vector;
 		//vector.pushBack(SpriteFrameCache::getInstance()->getSpriteFrameByName("enemy3_n1.png"));
@@ -329,7 +329,7 @@ void Bg::addEnemy(float tm)
 		return;
 	}
 	//以下的这句话一定要调用，添加敌机
-	auto str = __String::createWithFormat("AirplaneResource\\ui\\shoot\\enemy%d", enemy_x);
+	auto str = __String::createWithFormat("AirplaneResource/ui/shoot/enemy%d", enemy_x);
 	enemy->initEnemy(str->getCString(), count);
 	this->addChild(enemy, 1);
 
@@ -357,7 +357,7 @@ void Bg::gameOver()
 	char path[256] = { 0 };
 	for (int i = 1; i <= 4; ++i)
 	{
-		sprintf(path, "AirplaneResource\\ui\\shoot\\hero_blowup_n%d.png", i);
+		sprintf(path, "AirplaneResource/ui/shoot/hero_blowup_n%d.png", i);
 
 		// 150*105是图片的大小，貌似这样直接设定是不好的；但是还必须提供这个参数
 		// 应该给这个Rect参数提供一个默认参数，默认加载整个图片
