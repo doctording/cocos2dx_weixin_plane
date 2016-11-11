@@ -1,6 +1,8 @@
 项目描述
 ===
-cocos2dx仿微信打飞机游戏
+cocos2dx仿微信打飞机游戏,游戏运行首页
+
+![](http://i.imgur.com/IHRAPcC.png)
 
 功能介绍
 ===
@@ -173,6 +175,22 @@ Pause里面的某个控件点击回到原来暂停的场景,只需要下面的�
 Director::getInstance()->popScene();
 ```
 
+如下图
+
+![](http://i.imgur.com/qXC7O4N.png)
+
+
+# win32 exe, android apk
+
+一写注意问题和学习参考
+
+http://blog.csdn.net/qq_26437925/article/details/53105197=
+
+http://blog.csdn.net/qq_26437925/article/details/53072121
+
+apk运行截图
+
+![](http://i.imgur.com/7EWjCay.png)
 
 # C++相关
 
