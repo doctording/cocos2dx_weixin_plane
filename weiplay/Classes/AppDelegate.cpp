@@ -22,6 +22,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		glview->setFrameSize(400, 550); //ÉèÖÃÎª±³¾°Í¼Æ¬µÄ¿í ºÍ ¸ß
         director->setOpenGLView(glview);
     }
+	glview->setDesignResolutionSize(400, 550, ResolutionPolicy::NO_BORDER); // androidÆÁÄ»ÊÊÅä
 
     // turn on display FPS
     director->setDisplayStats(true);
