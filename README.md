@@ -58,7 +58,6 @@ http://blog.csdn.net/qq_26437925/article/details/52052904
 ## 场景使用tag来传值
 
 1. 先对某个场景设置tag, 例如
-
 ```
 Scene * GameOver::createScene()
 {
@@ -72,8 +71,8 @@ Scene * GameOver::createScene()
 	return scene;
 }
 ```
-2. 在进行场景跳转时，获取对象，并赋值给对象的某个成员变量
 
+2. 在进行场景跳转时，获取对象，并赋值给对象的某个成员变量
 GameOver类 有个int的成员变量score_int
 
 ```
@@ -85,7 +84,6 @@ Director::getInstance()->replaceScene(scene);
 ```	
 
 3. 在原来设置的场景的类中重写OnEnter方法,注意先super父类的OnEnter()方法
-
 ```
 void GameOver::onEnter()
 {
@@ -156,6 +154,29 @@ Button* btnBack = (Button*)Helper::seekWidgetByName(ui, "btn_back");
 btnBack->addTouchEventListener(this, toucheventselector(Help::back));
 ```
 
+* 事件处理
+```
+void Help::back(Ref* pSender, cocos2d::ui::TouchEventType type)
+{
+	switch (type)
+	{
+	case TouchEventType::TOUCH_EVENT_BEGAN: // 单机时间开始时触发（按下的时候）
+		break;
+	case TouchEventType::TOUCH_EVENT_MOVED: // 按下之后，进行移动操作时触发
+		break;
+	case TouchEventType::TOUCH_EVENT_ENDED: // 按下之后，然后松开触发
+	{
+		auto scene = StartGame::createScene();
+		Director::getInstance()->replaceScene(scene);
+	}
+		break;
+	case TouchEventType::TOUCH_EVENT_CANCELED: // 中断触发
+		break;
+	default:
+		break;
+	}
+}
+```
 
 ## 场景跳转，暂停功能的实现
 
@@ -303,3 +324,5 @@ git同步管理，确保每一次都可以有一个新功能的添加或改进�
 * 音频
 
 * 跨平台事件改进
+
+* ios应用程序发布
